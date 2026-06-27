@@ -4,6 +4,7 @@ import '../styles/App.css';
 
 function App() {
 	const legalGens = [1, 1025];
+	const randomNumber = Math.floor(Math.random() * 1000);
 	// Main menu, chooses which difficulty (16, 32, 64 imgs?) and which gens of pokemon to have.
 	// Once difficulty is chosen, move to game menu component.
 	// Game menu has a tracker at the top right with the current streak and best streak,
@@ -17,7 +18,10 @@ function App() {
 	// For now I am going to go with cards.
 	return (
 		<>
-			<Card dexNum={5}></Card>
+			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
+			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
+			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
+			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
 		</>
 	);
 }

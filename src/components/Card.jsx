@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import pokeball from '../assets/pokeball-png.png';
 export default function Card({ dexNum }) {
 	const [clicks, setClicks] = useState(0);
-	const [url, setURL] = useState({ pokeball });
+	const [imgAttr, setImgAttr] = useState({ url: pokeball, alt: "Who's that pokemon?" });
 	// this is bad practice ^
 	function handleClick() {
 		setClicks((clicks) => clicks + 1);
@@ -21,14 +21,14 @@ export default function Card({ dexNum }) {
 			const responseJSON = await response.json();
 			console.log(responseJSON);
 			image = responseJSON.sprites.other['official-artwork'].front_default;
-			setURL(image);
+			setImgAttr({ url: image, alt: responseJSON.name });
 		}
 		getURL();
-	});
+	}, []);
 	return (
 		<div className="card" onClick={handleClick}>
 			<h1>{clicks}</h1>
-			<img src={url} alt="" />
+			<img src={imgAttr.url} alt={imgAttr.alt} />
 		</div>
 	);
 }
