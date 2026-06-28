@@ -1,0 +1,27 @@
+.card {
+	border: 5px solid black;
+	padding: 4%;
+	padding-top: 8px;
+	/* get rid of the position later */
+	position: relative;
+	border-radius: 15px;
+	background: linear-gradient(white 80%, hsl(60, 48%, 80%) 20%);
+}
+.card img {
+	max-width: 100%;
+	background-color: white;
+}
+.card .name {
+	text-align: center;
+	background-color: hsl(60, 48%, 80%);
+	border-radius: 0 0 15px 15px;
+}
+.click-num {
+	position: absolute;
+	top: 0;
+}
+
+/* Cards need a border and color design */
+/* The text at the center needs to change relative to its container in size, */
+/* Font needs to be picked out */
+/* need to change my background color/ padding conflict thing I have right now */

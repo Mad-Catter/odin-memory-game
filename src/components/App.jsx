@@ -1,10 +1,24 @@
 import { useState } from 'react';
 import Card from './Card';
+import Game from './Game';
 import '../styles/App.css';
 
 function App() {
-	const legalGens = [1, 1025];
-	const randomNumber = Math.floor(Math.random() * 1000);
+	const gen1 = [1, 151];
+	const gen2 = [152, 251];
+	const gen3 = [252, 386];
+	const gen4 = [387, 493];
+	const gen5 = [494, 649];
+	const gen6 = [650, 721];
+	const gen7 = [722, 809];
+	const gen8 = [810, 905];
+	const gen9 = [906, 1025];
+	const legalGens = [];
+	for (let i = 1; i < 152; i++) {
+		legalGens.push(i);
+	}
+	// gen 1 [1, 151], g2 [152, 251], g3[252, 386], g4[387, 493], g5[494, 649], g6[650, 721], g7[722, 809], g8 [810, 905], g9 [906, 1025]
+
 	// Main menu, chooses which difficulty (16, 32, 64 imgs?) and which gens of pokemon to have.
 	// Once difficulty is chosen, move to game menu component.
 	// Game menu has a tracker at the top right with the current streak and best streak,
@@ -18,10 +32,7 @@ function App() {
 	// For now I am going to go with cards.
 	return (
 		<>
-			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
-			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
-			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
-			<Card dexNum={Math.floor(Math.random() * 1000)}></Card>
+			<Game legalpokemon={legalGens} numberOfPokemon={16}></Game>
 		</>
 	);
 }
