@@ -13,6 +13,11 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 		}
 		return array;
 	});
+
+	// I dont quite know if this is required.  This is code from Claude to escape the shuffle() useRef from requesting cardOrder as a dependency.
+	// Since cardOrder is an array (which is an object), it being put in the dependency array causes infinite loops.
+	// I will need to study useRef more after this,
+	// but for the moment I am getting frustrated with a (from my current and very likely incorrect perspective) unrequired warning so I will use Claude's code.
 	const cardOrderRef = useRef(cardOrder);
 	useEffect(() => {
 		cardOrderRef.current = cardOrder;
@@ -59,26 +64,25 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 		return () => {
 			ignore = true;
 		};
+		// legalPokemon is requested in the dependency array.  However, I currently do not actually need this to be in the array and adding it will cause an infinite loop.
+		//  I believe the best way to fix this warning is to use useMemo.  However I see that useMemo is a bit later in the odin project learning.
+		// While it would likely be best for me to read ahead to figure it out, I am feeling lazy.
+		// So for the moment I am going to leave this warning alone unless it starts breaking things.
 	}, [numberOfPokemon]);
 	useEffect(() => {
 		function shuffle() {
 			const array = [...cardOrderRef.current];
 			let currentIndex = array.length;
-
-			// While there remain elements to shuffle...
 			while (currentIndex != 0) {
-				// Pick a remaining element...
 				let randomIndex = Math.floor(Math.random() * currentIndex);
 				currentIndex--;
-
-				// And swap it with the current element.
 				[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
 			}
 			setCardOrder(array);
 		}
 		shuffle();
 	}, [currentScore]);
-	// A function needs to still be made to shuffle the cards on the grid when any of them are clicked
+	// A popup on loss needs to be triggered sending you back to the main menu.
 	return (
 		<div className="game-screen">
 			<div className="counter">

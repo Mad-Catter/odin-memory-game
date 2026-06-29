@@ -43,5 +43,5 @@
 
 /* Cards need a border and color design */
 /* The text at the center needs to change relative to its container in size, */
+/* The h1 will currently grow when the name is too long.  Which is acceptable, but then all cards on the row with the long name grow as well but the other rows remain small */
 /* Font needs to be picked out */
-/* need to change my background color/ padding conflict thing I have right now */
