@@ -17,13 +17,13 @@
 	--dark-type: hsl(8, 11%, 27%);
 	--steel-type: hsl(201, 31%, 63%);
 	--fairy-type: hsl(306, 29%, 61%);
+	--ui-color: hsl(60, 48%, 80%);
 }
 .card {
 	border: 5px solid black;
 	padding: 4%;
-	background-color: hsl(60, 48%, 80%);
-
 	padding-top: 8px;
+	background-color: var(--ui-color);
 	/* get rid of the position later */
 	position: relative;
 	border-radius: 15px;
@@ -34,7 +34,6 @@
 }
 .card .name {
 	text-align: center;
-	background-color: hsl(60, 48%, 80%);
 	border-radius: 0 0 15px 15px;
 }
 .click-num {

@@ -13,9 +13,9 @@ function App() {
 	const gen7 = [722, 809];
 	const gen8 = [810, 905];
 	const gen9 = [906, 1025];
-	const legalGens = [];
-	for (let i = 1; i < 152; i++) {
-		legalGens.push(i);
+	const legalPokemon = [];
+	for (let i = 1; i < 1025; i++) {
+		legalPokemon.push(i);
 	}
 	// gen 1 [1, 151], g2 [152, 251], g3[252, 386], g4[387, 493], g5[494, 649], g6[650, 721], g7[722, 809], g8 [810, 905], g9 [906, 1025]
 
@@ -32,7 +32,7 @@ function App() {
 	// For now I am going to go with cards.
 	return (
 		<>
-			<Game legalpokemon={legalGens} numberOfPokemon={16}></Game>
+			<Game legalPokemon={legalPokemon} numberOfPokemon={16}></Game>
 		</>
 	);
 }

@@ -7,6 +7,7 @@ export default function Card({
 	setCurrentScore,
 	bestScore,
 	setBestScore,
+	order,
 }) {
 	const [clicks, setClicks] = useState(0);
 	// this is bad practice ^
@@ -23,7 +24,7 @@ export default function Card({
 	}
 
 	return (
-		<div className="card" onClick={handleClick}>
+		<div className="card" onClick={handleClick} style={{ order: `${order}` }}>
 			<img src={pokemon.url} alt={pokemon.name} style={{ backgroundColor: `var(--${pokemon.type}-type)` }} />
 			<h1 className="click-num">{clicks}</h1>
 			<h1 className="name">{pokemon.name}</h1>

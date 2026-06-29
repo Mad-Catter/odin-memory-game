@@ -1,11 +1,23 @@
 import Card from './Card';
 import '../styles/Game.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
-export default function Game({ legalpokemon, numberOfPokemon }) {
+export default function Game({ legalPokemon, numberOfPokemon }) {
 	const [arrayOfPokemon, setArrayOfPokemon] = useState(new Array(numberOfPokemon).fill(undefined));
 	const [currentScore, setCurrentScore] = useState(0);
 	const [bestScore, setBestScore] = useState(0);
+	const [cardOrder, setCardOrder] = useState(() => {
+		const array = [];
+		for (let i = 0; i < arrayOfPokemon.length; i++) {
+			array.push(i);
+		}
+		return array;
+	});
+	const cardOrderRef = useRef(cardOrder);
+	useEffect(() => {
+		cardOrderRef.current = cardOrder;
+	}, [cardOrder]);
+
 	useEffect(() => {
 		let ignore = false;
 		const effectPokemon = [];
@@ -27,7 +39,7 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 			const currentPokemon = [];
 			for (let i = 0; i < numberOfPokemon; i++) {
 				function getLegalRandom() {
-					const randomNumber = Math.floor(Math.random() * legalpokemon.length);
+					const randomNumber = Math.floor(Math.random() * legalPokemon.length);
 					if (!currentPokemon.includes(randomNumber)) {
 						currentPokemon.push(randomNumber);
 						return randomNumber;
@@ -35,7 +47,7 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 					return getLegalRandom();
 				}
 
-				promises.push(getPokemon(legalpokemon[getLegalRandom()]));
+				promises.push(getPokemon(legalPokemon[getLegalRandom()]));
 			}
 			await Promise.all(promises);
 		}
@@ -48,6 +60,24 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 			ignore = true;
 		};
 	}, [numberOfPokemon]);
+	useEffect(() => {
+		function shuffle() {
+			const array = [...cardOrderRef.current];
+			let currentIndex = array.length;
+
+			// While there remain elements to shuffle...
+			while (currentIndex != 0) {
+				// Pick a remaining element...
+				let randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex--;
+
+				// And swap it with the current element.
+				[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+			}
+			setCardOrder(array);
+		}
+		shuffle();
+	}, [currentScore]);
 	// A function needs to still be made to shuffle the cards on the grid when any of them are clicked
 	return (
 		<div className="game-screen">
@@ -56,7 +86,7 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 				<h2 className="best">Best score: {bestScore}</h2>
 			</div>
 			<div className="card-grid">
-				{arrayOfPokemon.map((pokemon) => {
+				{arrayOfPokemon.map((pokemon, index) => {
 					return (
 						<Card
 							pokemon={pokemon}
@@ -64,6 +94,7 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 							setCurrentScore={setCurrentScore}
 							bestScore={bestScore}
 							setBestScore={setBestScore}
+							order={cardOrder[index]}
 						></Card>
 					);
 				})}
