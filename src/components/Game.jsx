@@ -13,7 +13,8 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 		}
 		return array;
 	});
-
+	const gridRows = numberOfPokemon === 16 ? 2 : 4;
+	const gridColumns = numberOfPokemon !== 64 ? 8 : 16;
 	// I dont quite know if this is required.  This is code from Claude to escape the shuffle() useRef from requesting cardOrder as a dependency.
 	// Since cardOrder is an array (which is an object), it being put in the dependency array causes infinite loops.
 	// I will need to study useRef more after this,
@@ -83,13 +84,17 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 		shuffle();
 	}, [currentScore]);
 	// A popup on loss needs to be triggered sending you back to the main menu.
+	// If you reach the max number, a victory popup should be triggered instead
 	return (
 		<div className="game-screen">
 			<div className="counter">
 				<h1 className="count">Current score: {currentScore}</h1>
 				<h2 className="best">Best score: {bestScore}</h2>
 			</div>
-			<div className="card-grid">
+			<div
+				className="card-grid"
+				style={{ gridTemplateRows: `repeat(${gridRows}, 1fr)`, gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
+			>
 				{arrayOfPokemon.map((pokemon, index) => {
 					return (
 						<Card
