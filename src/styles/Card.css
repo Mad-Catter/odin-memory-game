@@ -1,15 +1,36 @@
+:root {
+	--normal-type: hsl(0, 0%, 63%);
+	--fire-type: hsl(4, 66%, 51%);
+	--fighting-type: hsl(27, 86%, 57%);
+	--water-type: hsl(216, 46%, 52%);
+	--flying-type: hsl(211, 61%, 73%);
+	--grass-type: hsl(100, 45%, 43%);
+	--poison-type: hsl(267, 34%, 44%);
+	--electric-type: hsl(44, 87%, 60%);
+	--ground-type: hsl(26, 54%, 35%);
+	--psychic-type: hsl(342, 67%, 58%);
+	--rock-type: hsl(55, 20%, 61%);
+	--ice-type: hsl(198, 80%, 71%);
+	--bug-type: hsl(67, 50%, 42%);
+	--dragon-type: hsl(227, 38%, 48%);
+	--ghost-type: hsl(296, 25%, 35%);
+	--dark-type: hsl(8, 11%, 27%);
+	--steel-type: hsl(201, 31%, 63%);
+	--fairy-type: hsl(306, 29%, 61%);
+}
 .card {
 	border: 5px solid black;
 	padding: 4%;
+	background-color: hsl(60, 48%, 80%);
+
 	padding-top: 8px;
 	/* get rid of the position later */
 	position: relative;
 	border-radius: 15px;
-	background: linear-gradient(white 80%, hsl(60, 48%, 80%) 20%);
 }
 .card img {
 	max-width: 100%;
-	background-color: white;
+	background-color: var(--fire-type);
 }
 .card .name {
 	text-align: center;

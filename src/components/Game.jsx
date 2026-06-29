@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 export default function Game({ legalpokemon, numberOfPokemon }) {
 	const [arrayOfPokemon, setArrayOfPokemon] = useState(new Array(numberOfPokemon).fill(undefined));
+	const [currentScore, setCurrentScore] = useState(0);
+	const [bestScore, setBestScore] = useState(0);
 	useEffect(() => {
 		let ignore = false;
 		const effectPokemon = [];
@@ -18,7 +20,8 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 				console.log(responseJSON);
 				const image = responseJSON.sprites.other['official-artwork'].front_default;
 				const name = responseJSON.name.charAt(0).toUpperCase() + responseJSON.name.slice(1);
-				effectPokemon.push({ url: image, name: name });
+				const type = responseJSON.types[0].type.name;
+				effectPokemon.push({ url: image, name: name, type: type });
 			}
 			const promises = [];
 			const currentPokemon = [];
@@ -48,9 +51,21 @@ export default function Game({ legalpokemon, numberOfPokemon }) {
 	// A function needs to still be made to shuffle the cards on the grid when any of them are clicked
 	return (
 		<div className="game-screen">
+			<div className="counter">
+				<h1 className="count">Current score: {currentScore}</h1>
+				<h2 className="best">Best score: {bestScore}</h2>
+			</div>
 			<div className="card-grid">
 				{arrayOfPokemon.map((pokemon) => {
-					return <Card pokemon={pokemon}></Card>;
+					return (
+						<Card
+							pokemon={pokemon}
+							currentScore={currentScore}
+							setCurrentScore={setCurrentScore}
+							bestScore={bestScore}
+							setBestScore={setBestScore}
+						></Card>
+					);
 				})}
 			</div>
 		</div>
