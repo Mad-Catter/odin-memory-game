@@ -8,13 +8,13 @@ export default function Card({
 	bestScore,
 	setBestScore,
 	order,
+	setLosingPokemon,
 }) {
 	const [clicks, setClicks] = useState(0);
-	// this is bad practice ^
 	function handleClick() {
 		setClicks((clicks) => clicks + 1);
 		if (clicks + 1 > 1) {
-			alert(`This has been clicked ${clicks + 1} times!`);
+			setLosingPokemon(pokemon);
 		} else {
 			setCurrentScore((currentScore) => currentScore + 1);
 			if (currentScore + 1 > bestScore) {
@@ -24,10 +24,13 @@ export default function Card({
 	}
 
 	return (
-		<div className="card" onClick={handleClick} style={{ order: `${order}` }}>
-			<img src={pokemon.url} alt={pokemon.name} style={{ backgroundColor: `var(--${pokemon.type}-type)` }} />
+		<div
+			className="card"
+			onClick={handleClick}
+			style={{ order: `${order}`, backgroundColor: `var(--${pokemon.type}-type)` }}
+		>
+			<img src={pokemon.url} alt={pokemon.name} />
 			<h1 className="click-num">{clicks}</h1>
-			<h1 className="name">{pokemon.name}</h1>
 		</div>
 	);
 }

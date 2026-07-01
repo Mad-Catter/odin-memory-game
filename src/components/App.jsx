@@ -4,6 +4,7 @@ import Game from './Game';
 import '../styles/App.css';
 
 function App() {
+	const [numberOfPokemon, setNumberOfPokemon] = useState(16);
 	const gen1 = [1, 151];
 	const gen2 = [152, 251];
 	const gen3 = [252, 386];
@@ -13,6 +14,7 @@ function App() {
 	const gen7 = [722, 809];
 	const gen8 = [810, 905];
 	const gen9 = [906, 1025];
+	const [legalGens, setLegalGens] = useState([gen1, gen2, gen3, gen4, gen5, gen6, gen7, gen8, gen9]);
 	const legalPokemon = [];
 	for (let i = 1; i < 1025; i++) {
 		legalPokemon.push(i);

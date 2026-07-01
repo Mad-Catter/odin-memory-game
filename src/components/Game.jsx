@@ -1,6 +1,7 @@
 import Card from './Card';
 import '../styles/Game.css';
 import { useEffect, useState, useRef } from 'react';
+import LossScreen from './Loss';
 
 export default function Game({ legalPokemon, numberOfPokemon }) {
 	const [arrayOfPokemon, setArrayOfPokemon] = useState(new Array(numberOfPokemon).fill(undefined));
@@ -13,6 +14,7 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 		}
 		return array;
 	});
+	const [losingPokemon, setLosingPokemon] = useState(null);
 	const gridRows = numberOfPokemon === 16 ? 2 : 4;
 	const gridColumns = numberOfPokemon !== 64 ? 8 : 16;
 	// I dont quite know if this is required.  This is code from Claude to escape the shuffle() useRef from requesting cardOrder as a dependency.
@@ -86,28 +88,34 @@ export default function Game({ legalPokemon, numberOfPokemon }) {
 	// A popup on loss needs to be triggered sending you back to the main menu.
 	// If you reach the max number, a victory popup should be triggered instead
 	return (
-		<div className="game-screen">
-			<div className="counter">
-				<h1 className="count">Current score: {currentScore}</h1>
-				<h2 className="best">Best score: {bestScore}</h2>
+		<>
+			<div className="game-screen">
+				<div className="counter">
+					<h1 className="count">Current score: {currentScore}</h1>
+					<h2 className="best">Best score: {bestScore}</h2>
+				</div>
+				<div
+					className="card-grid"
+					style={{ gridTemplateRows: `repeat(${gridRows}, 1fr)`, gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
+				>
+					{arrayOfPokemon.map((pokemon, index) => {
+						return (
+							<Card
+								pokemon={pokemon}
+								currentScore={currentScore}
+								setCurrentScore={setCurrentScore}
+								bestScore={bestScore}
+								setBestScore={setBestScore}
+								order={cardOrder[index]}
+								setLosingPokemon={setLosingPokemon}
+								key={index}
+							></Card>
+						);
+					})}
+				</div>
 			</div>
-			<div
-				className="card-grid"
-				style={{ gridTemplateRows: `repeat(${gridRows}, 1fr)`, gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
-			>
-				{arrayOfPokemon.map((pokemon, index) => {
-					return (
-						<Card
-							pokemon={pokemon}
-							currentScore={currentScore}
-							setCurrentScore={setCurrentScore}
-							bestScore={bestScore}
-							setBestScore={setBestScore}
-							order={cardOrder[index]}
-						></Card>
-					);
-				})}
-			</div>
-		</div>
+			{!losingPokemon ? null : <LossScreen pokemon={losingPokemon} score={currentScore}></LossScreen>}
+			{/* A victory screen needs to be added */}
+		</>
 	);
 }

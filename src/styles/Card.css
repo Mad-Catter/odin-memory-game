@@ -24,17 +24,19 @@
 	padding: 4%;
 	padding-top: 8px;
 	background-color: var(--ui-color);
+	border-radius: 15px;
+	cursor: pointer;
 	/* get rid of the position later */
 	position: relative;
-	border-radius: 15px;
 }
 .card img {
 	max-width: 100%;
-	background-color: var(--fire-type);
+	border-radius: 5px;
 }
 .card .name {
 	text-align: center;
 	border-radius: 0 0 15px 15px;
+	display: none;
 }
 .click-num {
 	position: absolute;
